@@ -12,8 +12,18 @@
 
 <script>
 
-    var message = "嗨，欢迎您来到 from zero to expert.";
-    document.getElementById("message").innerHTML = message;
+    var message_fistlogin = "嗨，欢迎您来到 from zero to expert.";
+    var message_logined = "嗨，欢迎您再次到 from zero to expert.";
+    var cookieArr = document.cookie.split(";");
+    var flag = true;
+    for(var i = 0; i < cookieArr.length; i++){
+        if(cookieArr[i].split("=")[0].trim() == "firstLogin" && cookieArr[i].split("=")[1].trim() == "1"){
+            flag = false;
+            document.getElementById("message").innerHTML = message_logined;
+            break;
+        }
+    }
+    if(flag) document.getElementById("message").innerHTML = message_fistlogin;
 
 </script>
 
