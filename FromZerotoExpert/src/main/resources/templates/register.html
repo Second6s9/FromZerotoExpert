@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>register</title>
+    <link rel="stylesheet" type="text/css" href="/css/change.css" />
+    <script src="/js/change.js"></script>
+</head>
+<body>
+<div class="control">
+    <div class="item">
+        <div id="login">登录</div><div id="register" class="active">注册</div>
+    </div>
+    <form action="/FromZerotoExpert/save" method="post">
+        <div class="content">
+            <div style="display: block;">
+                <p>用户名</p>
+                <input type="text" name="username" placeholder="username" />
+                <p>密码</p>
+                <input type="password" name="password" placeholder="password"/>
+                <p>邮箱</p>
+                <input type="text" name="email" placeholder="email" />
+                <br/>
+                <input type="submit" value="注册"/>
+            </div>
+        </div>
+    </form>
+
+</div>
+</body>
+</html>
