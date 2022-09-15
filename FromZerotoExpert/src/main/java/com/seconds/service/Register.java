@@ -1,4 +1,4 @@
-package com.seconds.service.impl;
+package com.seconds.service;
 
 import com.seconds.entity.User;
 

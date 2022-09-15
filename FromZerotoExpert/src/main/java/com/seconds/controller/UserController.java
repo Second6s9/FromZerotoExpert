@@ -1,8 +1,7 @@
 package com.seconds.controller;
 
 import com.seconds.entity.User;
-import com.seconds.service.UserService;
-import com.seconds.service.impl.Register;
+import com.seconds.service.Register;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
