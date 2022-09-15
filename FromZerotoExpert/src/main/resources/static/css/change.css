@@ -51,7 +51,7 @@ p{
     padding: 0 10px;
     box-sizing: border-box;
 }
-.content input[type="submit"]{
+.content input[type="button"]{
     margin-top: 40px;
     width: 100%;
     height: 40px;

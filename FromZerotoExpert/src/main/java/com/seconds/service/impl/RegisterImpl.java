@@ -14,4 +14,9 @@ public class RegisterImpl implements Register {
     public void regist(User user) {
         userDao.save(user);
     }
+
+    @Override
+    public User selectByUsername(String username) {
+        return userDao.selectByUsername(username);
+    }
 }

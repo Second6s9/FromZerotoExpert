@@ -6,26 +6,32 @@
     <title>register</title>
     <link rel="stylesheet" type="text/css" href="/css/change.css" />
     <script src="/js/change.js"></script>
+    <script type="text/javascript"src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 </head>
 <body>
 <div class="control">
     <div class="item">
         <div id="login">登录</div><div id="register" class="active">注册</div>
     </div>
-    <form action="/FromZerotoExpert/save" method="post">
+    <form  id="submit_form" action="/FromZerotoExpert/save" method="post">
         <div class="content">
             <div style="display: block;">
-                <p>用户名</p>
-                <input type="text" name="username" placeholder="username" />
-                <p>密码</p>
-                <input type="password" name="password" placeholder="password"/>
-                <p>邮箱</p>
-                <input type="text" name="email" placeholder="email" />
+                <p>用户名 <a id="username_message"></a></p>
+                <input id="username" type="text" name="username" placeholder="username" />
+
+                <p>密码 <a id="password_message"></a></p>
+                <input id = "password" type="password" name="password" placeholder="password"/>
+
+                <p>邮箱 <a id="email_message"></a></p>
+                <input id = "email" type="text" name="email" placeholder="email" />
+
                 <br/>
-                <input type="submit" value="注册"/>
+                <input id="register_submit" type="button" value="注册"/>
             </div>
         </div>
     </form>
+
+
 
 </div>
 </body>
