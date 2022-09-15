@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/FromZerotoExpert")
-public class UserController {
+public class RegisterController {
     @Autowired
     private Register register;
 
