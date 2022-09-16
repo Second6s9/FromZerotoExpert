@@ -1,14 +1,19 @@
 package com.seconds.controller;
 
 import com.seconds.dao.UserDao;
+import com.seconds.entity.DisallowWord;
 import com.seconds.entity.User;
+import com.seconds.service.DisallowWordService;
 import com.seconds.service.Register;
 import com.seconds.utils.RegisterResult;
 import com.seconds.utils.RegisterUtils;
+import com.seconds.utils.Trie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
+import java.util.List;
 
 
 @Controller
@@ -16,6 +21,21 @@ import org.springframework.web.bind.annotation.*;
 public class RegisterController {
     @Autowired
     private Register register;
+
+    @Autowired
+    private DisallowWordService disallowWordService;
+
+    private Trie words;
+
+    @PostConstruct
+    public void init(){
+        Trie root = new Trie();
+        List<DisallowWord> disallowWords = disallowWordService.selectAll();
+        for(int i = 0; i < disallowWords.size(); i++){
+            root.insert(disallowWords.get(i).getValue());
+        }
+        words = root;
+    }
 
 
     @RequestMapping("/register")
@@ -32,8 +52,15 @@ public class RegisterController {
     @PostMapping("/checkUsername")
     @ResponseBody
     public RegisterResult checkUsername(String username){
+        // 检测用户名长度是否符合
         RegisterResult registerResult = RegisterUtils.checkUsername(username);
         if(!registerResult.getQualified()) return registerResult;
+
+        // 检测用户名是否含有敏感词
+        registerResult = RegisterUtils.checkDisalowWord(username, words);
+        if(!registerResult.getQualified()) return registerResult;
+
+        // 检测用户名是否重复
         User user = register.selectByUsername(username);
         if(null != user) return new RegisterResult(false, "该用户名已存在！");
         return registerResult;
@@ -56,6 +83,9 @@ public class RegisterController {
     public RegisterResult checkAll(User user){
 //        System.out.println("user = " + user);
         RegisterResult registerResult = RegisterUtils.checkUsername(user.getUsername());
+        if(!registerResult.getQualified()) return registerResult;
+
+        registerResult = RegisterUtils.checkDisalowWord(user.getUsername(), words);
         if(!registerResult.getQualified()) return registerResult;
 
         registerResult = RegisterUtils.checkPassword(user.getPassword());

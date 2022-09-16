@@ -1,15 +1,14 @@
 package com.seconds.utils;
 
+import com.seconds.entity.DisallowWord;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegisterUtils {
-    // 敏感词
-    public static String[] sensitiveWords = {"尼玛", "站长", "国家领导人", "操"};
-
 
     /**
-     * 判断用户名称是否为空，长度是否大于15，以及是否包含敏感词
+     * 判断用户名称是否为空，长度是否大于15
      * @param username
      * @return RegisterResult
      */
@@ -20,17 +19,21 @@ public class RegisterUtils {
         // 判断用户名长度是否超过15
         if(username.length() > 15) return new RegisterResult(false, "用户名称长度不允许超过15！");
 
-        // 判断用户名是否包含敏感词, 构建字典树
-        Trie root = new Trie();
-        for(int i = 0; i < sensitiveWords.length; i++){
-            // 将所有敏感词词汇插入并记录
-            root.insert(sensitiveWords[i]);
-        }
+        return new RegisterResult(true);
+    }
 
+    /**
+     * 敏感词检测
+     * @param username 用户名
+     * @param root 已经构建好的字典树
+     * @return
+     */
+    public static RegisterResult checkDisalowWord(String username, Trie root){
         int i = 0;
         while(i < username.length()){
             int j = i;
-            // 若username子串前缀不为敏感词前缀，一定不是敏感词，若子串前缀为敏感词前缀，则继续检测是否为敏感词，若是，则返回false和信息，否则继续检测，直至跳出循环。
+            // 若username子串前缀不为敏感词前缀，一定不是敏感词
+            // 若子串前缀为敏感词前缀，则继续检测是否为敏感词，若是，则返回false和信息否则继续检测，直至跳出循环。
             while(j < username.length() && root.startsWith(username.substring(i, j + 1))){
                 if(root.search(username.substring(i, j + 1))){
                     return new RegisterResult(false, "用户名含有敏感词汇！");
@@ -41,6 +44,8 @@ public class RegisterUtils {
         }
         return new RegisterResult(true);
     }
+
+
     /**
      * 判断用密码是否为空，长度是否在6~16之间，以及是否包含两种以上字符，且只包含数字及英文大小写
      * @param password
