@@ -54,7 +54,7 @@ public class RegisterController {
     @PostMapping("/checkAll")
     @ResponseBody
     public RegisterResult checkAll(User user){
-        System.out.println("user = " + user);
+//        System.out.println("user = " + user);
         RegisterResult registerResult = RegisterUtils.checkUsername(user.getUsername());
         if(!registerResult.getQualified()) return registerResult;
 

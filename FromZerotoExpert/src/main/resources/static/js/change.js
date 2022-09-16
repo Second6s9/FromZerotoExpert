@@ -5,7 +5,7 @@ function checkUsername(){
     name = $.trim(name);
     var url = "checkUsername";
     var args = {"username":name};
-    $.ajaxSettings.async = false;
+
     $.post(url, args, function (data){
         var qualified = data.qualified;
         var message = data.message;
@@ -23,8 +23,8 @@ function checkUsername(){
         }
     });
 
-
 }
+
 function checkPassword(){
 
     var password = document.getElementById("password");
