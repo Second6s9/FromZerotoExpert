@@ -13,7 +13,7 @@ public class RegisterUtils {
     public static final long RANDOM_SEED = 10086;
 
     public static final int SALT_LENGTH = 64;
-    
+
 
     /**
      * 判断用户名称是否为空，长度是否大于15
