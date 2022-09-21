@@ -13,8 +13,7 @@ public class RegisterUtils {
     public static final long RANDOM_SEED = 10086;
 
     public static final int SALT_LENGTH = 64;
-
-    public static final String ENCRYPT_TYPE = "string_type";
+    
 
     /**
      * 判断用户名称是否为空，长度是否大于15
