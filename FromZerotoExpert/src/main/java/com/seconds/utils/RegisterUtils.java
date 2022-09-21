@@ -1,11 +1,20 @@
 package com.seconds.utils;
 
-import com.seconds.entity.DisallowWord;
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.crypto.digest.DigestUtil;
 
+
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegisterUtils {
+
+    public static final long RANDOM_SEED = 10086;
+
+    public static final int SALT_LENGTH = 64;
+
+    public static final String ENCRYPT_TYPE = "string_type";
 
     /**
      * 判断用户名称是否为空，长度是否大于15
@@ -105,5 +114,63 @@ public class RegisterUtils {
         else
             return new RegisterResult(false, "邮箱格式有误!");
     }
+
+    /**
+     * 将密码加密
+     * @param password
+     * @param salt
+     * @return
+     */
+    public static String encryptPassword(String password, String salt){
+        char[] realSalt = new char[32];
+        char[] fakeSalt = new char[32];
+        for(int i = 0; i < SALT_LENGTH; i++){
+            realSalt[i / 2] = salt.charAt(i);
+            fakeSalt[i / 2] = salt.charAt(++i);
+        }
+        fakeSalt = shuffleFakeSalt(fakeSalt);
+
+        password = DigestUtil.md5Hex(password + new String(realSalt));
+
+        password = DigestUtil.md5Hex(password + new String(fakeSalt));
+
+        System.out.println(password);
+        return password;
+    }
+
+
+    /**
+     * 生成随机盐值，利用随机生成唯一UUID的方式，生成随机盐
+     * @return
+     */
+    public static String generateSalt(){
+        String realSalt = IdUtil.simpleUUID();
+        String fakeSalt = IdUtil.simpleUUID();
+        char[] salt = new char[SALT_LENGTH];
+        for(int i = 0; i < SALT_LENGTH; i++){
+            salt[i] = realSalt.charAt(i / 2);
+            salt[++i] = fakeSalt.charAt(i / 2);
+        }
+        return new String(salt);
+    }
+
+    /**
+     * 将假盐置乱
+     * @param fakeSalt
+     * @return
+     */
+    public static char[] shuffleFakeSalt(char[] fakeSalt){
+        Random r = new Random();
+        for(int i = 0; i < fakeSalt.length; i++){
+            r.setSeed(RANDOM_SEED * i);
+            int index = r.nextInt(fakeSalt.length);
+            char temp = fakeSalt[i];
+            fakeSalt[i] = fakeSalt[index];
+            fakeSalt[index] = temp;
+        }
+        return fakeSalt;
+    }
+
+
 
 }

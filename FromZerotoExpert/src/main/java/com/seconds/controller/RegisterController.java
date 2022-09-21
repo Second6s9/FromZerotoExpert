@@ -81,6 +81,7 @@ public class RegisterController {
     @PostMapping("/checkAll")
     @ResponseBody
     public RegisterResult checkAll(User user){
+        user.setUsername(user.getUsername().trim());
 //        System.out.println("user = " + user);
         RegisterResult registerResult = RegisterUtils.checkUsername(user.getUsername());
         if(!registerResult.getQualified()) return registerResult;
@@ -102,7 +103,10 @@ public class RegisterController {
 
     @PostMapping("/save")
     public String save(User user){
-        user.setSalt(user.getUsername());
+        String salt = RegisterUtils.generateSalt();
+        user.setSalt(salt);
+        String password = RegisterUtils.encryptPassword(user.getPassword(), salt);
+        user.setPassword(password);
         register.regist(user);
         return "register_success.html";
     }
