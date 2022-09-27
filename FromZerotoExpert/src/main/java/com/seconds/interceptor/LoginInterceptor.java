@@ -26,7 +26,9 @@ public class LoginInterceptor implements HandlerInterceptor {
             if(null != sessionId && !"".equals(sessionId)){
                 String username = stringRedisTemplate.opsForValue().get(sessionId);
                 if(null != username && !"".equals(username)){
+                    request.getSession().setMaxInactiveInterval(60);        //设置session过期时间
                     stringRedisTemplate.expire(sessionId, 60, TimeUnit.SECONDS);
+                    stringRedisTemplate.expire(username, 60, TimeUnit.SECONDS);
                     return true;
                 }
             }
