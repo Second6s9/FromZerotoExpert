@@ -70,3 +70,9 @@ p{
 .item div:hover{
     background: #f6f6f6;
 }
+
+#login_message{
+    font-size: 4px;
+    margin-left:95px;
+
+}

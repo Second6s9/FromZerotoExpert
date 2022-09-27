@@ -8,9 +8,22 @@ spring:
     username: root
     password: 123456
 
+  resources:
+    static-locations: classpath:/templates/redirect_login.html,classpath:/static
+  redis:
+    host: 39.101.66.57
+    port: 6379
+    password: seconds123456
+
+
 # 应用服务 WEB 访问端口
 server:
   port: 8080
+  servlet:
+    session:
+      timeout: 10
+
+
 
 
 

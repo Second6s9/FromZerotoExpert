@@ -133,7 +133,6 @@ public class RegisterUtils {
 
         password = DigestUtil.md5Hex(password + new String(fakeSalt));
 
-        System.out.println(password);
         return password;
     }
 

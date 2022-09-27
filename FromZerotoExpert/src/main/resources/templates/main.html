@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Second6S9</title>
+</head>
+
+
+<body>
+    <h2 id="message"></h2>
+</body>
+
+<script>
+
+    var hi = "嗨，";
+    var welcome = "，欢迎您来到 from zero to expert.";
+    var cookieArr = document.cookie.split(";");
+    for(var i = 0; i < cookieArr.length; i++){
+        if(cookieArr[i].split("=")[0].trim() == "username"){
+            name = cookieArr[i].split("=")[1].trim();
+            var message = hi + welcome + name
+            document.getElementById("message").innerHTML = hi + name + welcome;
+            break;
+        }else{
+            document.getElementById("message").innerHTML = "啊哦！你发现了BUG,请速速联系我！";
+        }
+    }
+
+
+</script>
+
+</html>

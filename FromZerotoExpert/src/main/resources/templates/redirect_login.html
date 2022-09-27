@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>您尚未登录，请先进行登录</title>
+    <style>
+        div{
+            font-size: 16px;
+            background-color: coral;
+            height: 50px;
+            width: 300px;
+            text-align: center;
+            line-height: 50px;
+            margin: auto ;
+            margin-top: 250px;
+        }
+        a{
+            font-size: 16px;
+            height: 10px;
+            width: 300px;
+            text-align: center;
+            line-height: 50px;
+            margin-left: 740px;
+        }
+    </style>
+</head>
+<body>
+<div></div>
+<a href="/FromZerotoExpert/login">手动跳转</a>
+<script>
+    var div = document.querySelector('div');
+    var t = 3;
+    fn();
+    setInterval(fn, 1000);
+    function fn() {
+        if (t === 0){
+            location.href = '/FromZerotoExpert/login';
+        }
+        div.innerHTML = '您尚未登录或登录过期，'+t+'秒后跳转登录';
+        t--;
+    }
+
+</script>
+</body>
+</html>
+

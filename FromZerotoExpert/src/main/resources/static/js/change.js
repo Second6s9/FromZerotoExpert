@@ -75,7 +75,39 @@ function checkEmail(){
     })
 }
 
+function check_loginUsername(){
+    return !($("#login_username").val() == "");
+}
 
+function check_loginPassword(){
+    return !($("#login_password").val() == "");
+}
+
+function login_usernameCheck(){
+    var login_username_message = document.getElementById("login_username_message");
+    if(check_loginUsername()){
+        login_username_message.innerHTML = "";
+        $("#login_username").css('border', '1px solid #adadad');
+    }else{
+        login_username_message.innerHTML = "用户名不能为空";
+        $(login_username_message).css('color', 'red');
+        $(login_username_message).css('font-size', 4);
+        $("#login_username").css('border', '1px solid red');
+    }
+}
+
+function login_passwordCheck(){
+    var login_password_message = document.getElementById("login_password_message");
+    if(check_loginPassword()){
+        login_password_message.innerHTML = "";
+        $("#login_password").css('border', '1px solid #adadad');
+    }else{
+        login_password_message.innerHTML = "密码不能为空";
+        $(login_password_message).css('color', 'red');
+        $(login_password_message).css('font-size', 4);
+        $("#login_password").css('border', '1px solid red');
+    }
+}
 
 
 window.onload = function (){
@@ -113,6 +145,37 @@ window.onload = function (){
                 checkPassword();
             }
         })
+    })
+
+    var login_message = document.getElementById("login_message");
+
+    $("#login_submit").click(function (){
+        if(check_loginUsername() && check_loginPassword()){
+            $.post("login/user", {"username": $("#login_username").val(),
+                "password": $("#login_password").val()}, function (data){
+                if(data.qualified){
+                    login_message.innerHTML = "";
+                    $(location).attr("href", "/FromZerotoExpert/main");
+                }else{
+                    login_message.innerHTML = data.message;
+                    $(login_message).css('color', 'red');
+                }
+            })
+        }else{
+            login_usernameCheck();
+            login_passwordCheck();
+        }
+
+    })
+
+
+
+    $("#login_username").blur(function (){
+        login_usernameCheck();
+    })
+
+    $("#login_password").blur(function (){
+        login_passwordCheck();
     })
 
 
