@@ -52,12 +52,12 @@ public class LoginImpl implements Login {
         //密码正确，生成sessionId，并将sessionId和username互作为键值存入redis数据库中
         String sessionId = IdUtil.simpleUUID();
         request.getSession().setAttribute("user", sessionId);
-        request.getSession().setMaxInactiveInterval(60);        //设置session过期时间
+        request.getSession().setMaxInactiveInterval(60 * 60 * 24);        //设置session过期时间
         stringRedisTemplate.opsForValue().set(sessionId, username);
         stringRedisTemplate.opsForValue().set(username, sessionId);
         //设置redis键值对过期时间
-        stringRedisTemplate.expire(sessionId, 60, TimeUnit.SECONDS);
-        stringRedisTemplate.expire(username, 60, TimeUnit.SECONDS);
+        stringRedisTemplate.expire(sessionId, 60 * 60 *24, TimeUnit.SECONDS);
+        stringRedisTemplate.expire(username, 60 * 60 * 24, TimeUnit.SECONDS);
 
 
 
