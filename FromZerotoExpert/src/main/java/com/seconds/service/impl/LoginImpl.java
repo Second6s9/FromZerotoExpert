@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -40,6 +41,10 @@ public class LoginImpl implements Login {
         if(!password.equals(check_password)) return new RegisterResult(false, "用户名或密码错误!");
 
 
+        Cookie cookie = new Cookie("JSESSIONID",request.getSession().getId());
+        cookie.setMaxAge(60 * 60 * 24);
+        response.addCookie(cookie);
+
         //密码正确，先检查之前的登录是否过期
         String oldSessionId = stringRedisTemplate.opsForValue().get(username);
         if(null != oldSessionId && !"".equals(oldSessionId)){
@@ -63,6 +68,8 @@ public class LoginImpl implements Login {
 
         //存储用户名称，重定向至主页时防止数据丢失
         request.getSession().setAttribute("username", username);
+        long time = new Date().getTime();
+        stringRedisTemplate.opsForZSet().add("onlineUser", username, (double) time);
 
         return new RegisterResult(true);
     }

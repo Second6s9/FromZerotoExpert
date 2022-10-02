@@ -7,8 +7,10 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 
@@ -26,6 +28,13 @@ public class LoginInterceptor implements HandlerInterceptor {
             if(null != sessionId && !"".equals(sessionId)){
                 String username = stringRedisTemplate.opsForValue().get(sessionId);
                 if(null != username && !"".equals(username)){
+                    Cookie cookie = new Cookie("JSESSIONID",request.getSession().getId());
+                    cookie.setMaxAge(60 * 60 * 24);
+                    response.addCookie(cookie);
+
+                    long time = new Date().getTime();
+                    stringRedisTemplate.opsForZSet().add("onlineUser", username,(double) time);
+
                     request.getSession().setMaxInactiveInterval(60 * 60 * 24);        //设置session过期时间
                     stringRedisTemplate.expire(sessionId, 60 * 60 * 24, TimeUnit.SECONDS);
                     stringRedisTemplate.expire(username, 60 * 60 * 24, TimeUnit.SECONDS);

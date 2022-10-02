@@ -3,30 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Second6S9</title>
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+    <script type="text/javascript" src="/js/main.js"></script>
+    <script type="text/javascript" src="/js/auto_quit.js"></script>
+    <script type="text/javascript"src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 </head>
 
 
 <body>
-    <h2 id="message"></h2>
+    <div id = "main_box">
+        <h2 id="message"></h2>
+        <p>您当前的状态：<a id="current_status">在线</a></p>
+        <p>在线人数:<a id="current_online_numbers">加载中...</a></p>
+    </div>
+
+
 </body>
 
-<script>
 
-    var hi = "嗨，";
-    var welcome = "，欢迎您来到 from zero to expert.";
-    var cookieArr = document.cookie.split(";");
-    for(var i = 0; i < cookieArr.length; i++){
-        if(cookieArr[i].split("=")[0].trim() == "username"){
-            name = cookieArr[i].split("=")[1].trim();
-            var message = hi + welcome + name
-            document.getElementById("message").innerHTML = hi + name + welcome;
-            break;
-        }else{
-            document.getElementById("message").innerHTML = "啊哦！你发现了BUG,请速速联系我！";
-        }
-    }
-
-
-</script>
 
 </html>
