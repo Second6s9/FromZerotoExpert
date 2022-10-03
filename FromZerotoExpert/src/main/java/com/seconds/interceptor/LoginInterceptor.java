@@ -32,8 +32,8 @@ public class LoginInterceptor implements HandlerInterceptor {
                     cookie.setMaxAge(60 * 60 * 24);
                     response.addCookie(cookie);
 
-                    long time = new Date().getTime();
-                    stringRedisTemplate.opsForZSet().add("onlineUser", username,(double) time);
+//                    long time = new Date().getTime();
+//                    stringRedisTemplate.opsForZSet().add("onlineUser", username,(double) time);
 
                     request.getSession().setMaxInactiveInterval(60 * 60 * 24);        //设置session过期时间
                     stringRedisTemplate.expire(sessionId, 60 * 60 * 24, TimeUnit.SECONDS);

@@ -11,7 +11,7 @@ spring:
   resources:
     static-locations: classpath:/templates/redirect_login.html,classpath:/static
   redis:
-    host: 39.101.66.57
+    host: 123.57.142.33
     port: 6379
     password: seconds123456
 
@@ -22,6 +22,9 @@ server:
   servlet:
     session:
       timeout: 86400
+  max-http-header-size: 1024000
+  tomcat:
+    max-http-form-post-size: 1024000
 
 
 

@@ -29,7 +29,7 @@ function scheduledTasks(){
     }else{
         //页面未关闭时，检测不超时，更新时间戳
         $.post("/FromZerotoExpert/main/updateOnlineTime", {"time":currentTime}, function (data){
-
+            document.getElementById("current_status").innerHTML = "在线";
         })
     }
     //页面未关闭时，定时更新在线人数
