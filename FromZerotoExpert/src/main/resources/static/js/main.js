@@ -6,7 +6,13 @@ window.onload = function (){
     var welcome = "，欢迎您来到 from zero to expert.";
     var cookieArr = document.cookie.split(";");
     $.post("/FromZerotoExpert/main/getOnlineNums", {"time":currentTime}, function (data){
-        document.getElementById("current_online_numbers").innerHTML = data.message;
+        var onlineUsers = "<p>当前在线用户:</p><br>"
+        users = data.data;
+        for(var i = 0; i < users.length; i++){
+            onlineUsers = onlineUsers + "<p>" + users[i] + "</p><br>"
+        }
+        document.getElementById("current_online_numbers").innerHTML = users.length;
+        document.getElementById("current_online_users").innerHTML = onlineUsers;
     })
     for(var i = 0; i < cookieArr.length; i++){
         if(cookieArr[i].split("=")[0].trim() == "username"){

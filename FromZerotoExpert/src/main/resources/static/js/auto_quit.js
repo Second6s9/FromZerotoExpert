@@ -34,7 +34,13 @@ function scheduledTasks(){
     }
     //页面未关闭时，定时更新在线人数
     $.post("/FromZerotoExpert/main/getOnlineNums", {"time":currentTime}, function (data){
-        document.getElementById("current_online_numbers").innerHTML = data.message;
+        var onlineUsers = "<p>当前在线用户:</p>"
+        users = data.data;
+        for(var i = 0; i < users.length; i++){
+            onlineUsers = onlineUsers + "<p>" + users[i] + "</p>"
+        }
+        document.getElementById("current_online_numbers").innerHTML = users.length;
+        document.getElementById("current_online_users").innerHTML = onlineUsers;
     })
 }
 

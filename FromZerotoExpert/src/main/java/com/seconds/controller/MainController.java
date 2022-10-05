@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/FromZerotoExpert/main")
@@ -40,19 +41,20 @@ public class MainController {
 
     @PostMapping("/getOnlineNums")
     @ResponseBody
-    public RegisterResult getOnlineNums(long time,HttpServletRequest request, HttpServletResponse response){
+    public BaseResult getOnlineNums(long time,HttpServletRequest request, HttpServletResponse response){
         String username = null;
         try {
             username = (String) request.getSession().getAttribute("username");
             if(null != username && !"".equals(username)){
-                Long nums = stringRedisTemplate.opsForZSet().count("onlineUser", (double) (time - 60 * 1000), (double) (time + 60 * 1000));
-                return new RegisterResult(true, nums + "人");
+//                Long nums = stringRedisTemplate.opsForZSet().count("onlineUser", (double) (time - 60 * 1000), (double) (time + 60 * 1000));
+                Set<String> onlineUser = stringRedisTemplate.opsForZSet().rangeByScore("onlineUser", (double) (time - 60 * 1000), (double) (time + 60 * 1000));
+                return new BaseResult(onlineUser,true);
             }
         }catch (Exception e){
             e.printStackTrace();
         }
 
-        return new RegisterResult(false, "加载中...");
+        return new BaseResult(null, false);
     }
 
     @PostMapping("/updateOnlineTime")
