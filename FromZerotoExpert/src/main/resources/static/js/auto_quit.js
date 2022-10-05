@@ -36,6 +36,7 @@ function scheduledTasks(){
     $.post("/FromZerotoExpert/main/getOnlineNums", {"time":currentTime}, function (data){
         var onlineUsers = "<p>当前在线用户:</p>"
         users = data.data;
+        users.sort();
         for(var i = 0; i < users.length; i++){
             onlineUsers = onlineUsers + "<p>" + users[i] + "</p>"
         }
