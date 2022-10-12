@@ -58,6 +58,7 @@ window.onload = function (){
             total_value = 0;
         }
         if(total_value > 30) total_value = 30;
+        if(total_value < 0) total_value = 0;
         $("#total_count").val(total_value);
         if(total_value == 0){
             document.getElementById("total_pv").innerHTML = "-";
@@ -73,13 +74,20 @@ window.onload = function (){
                 total_value = 0;
             }
             if(total_value > 30) total_value = 30;
-
+            if(total_value < 0) total_value = 0;
             $.post("/FromZerotoExpert/webInformation/getRangeWebInformation", {"days":total_value}, function (data){
                 document.getElementById("total_uv").innerHTML = data.uv;
                 document.getElementById("total_ip").innerHTML = data.ip;
                 document.getElementById("total_pv").innerHTML = data.pv;
             })
         })
+    })
+
+    $("#blackHouse_button").click(function (){
+        $.post("/FromZerotoExpert/webInformation/go_blackHouse", {}, function (data){
+            $(location).attr("href", "/FromZerotoExpert/blackHouse");
+        })
+
     })
 
     window.setInterval(autoQuit,check_time);

@@ -15,7 +15,7 @@ public class WebInformationExe {
     private WebInformationTask webInformationTask;
 
 
-    @Scheduled(cron = "0 18 10 * * ?")
+    @Scheduled(cron = "0 59 23 * * ?")
     public void autoIntoDbTask(){
         webInformationTask.executeInternal();
     }

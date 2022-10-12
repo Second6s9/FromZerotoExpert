@@ -1,9 +1,6 @@
 package com.seconds.config;
 
-import com.seconds.interceptor.IpInterceptor;
-import com.seconds.interceptor.LoginInterceptor;
-import com.seconds.interceptor.PvInterceptor;
-import com.seconds.interceptor.UvInterceptor;
+import com.seconds.interceptor.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
@@ -14,6 +11,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Component
 @Configuration
 public class MySpringMvcConfig implements WebMvcConfigurer {
+    @Autowired
+    private BlackHouseInterceptor blackHouseInterceptor;
 
     @Autowired
     private PvInterceptor pvInterceptor;
@@ -39,6 +38,15 @@ public class MySpringMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(blackHouseInterceptor).addPathPatterns("/**").excludePathPatterns(
+                "/FromZerotoExpert/blackHouse",
+                "/blackHouse",
+                "/**/*.html",                //html静态资源
+                "/**/*.js",                  //js静态资源
+                "/**/*.css"                  //css静态资源
+        );
+
+
         registry.addInterceptor(pvInterceptor).addPathPatterns("/**").excludePathPatterns(
                 "/FromZerotoExpert/webInformation/**",
                 "/FromZerotoExpert/redirect_login",
@@ -52,6 +60,8 @@ public class MySpringMvcConfig implements WebMvcConfigurer {
                 "/FromZerotoExpert/checkAll",
                 "/FromZerotoExpert",
                 "/FromZerotoExpert/redirect_login",
+                "/FromZerotoExpert/blackHouse",
+                "/blackHouse",
                 "/redirect_login",
                 "/FromZerotoExpert/save",
                 "/redirect_login",
@@ -73,6 +83,8 @@ public class MySpringMvcConfig implements WebMvcConfigurer {
                 "/FromZerotoExpert/checkAll",
                 "/FromZerotoExpert",
                 "/FromZerotoExpert/redirect_login",
+                "/FromZerotoExpert/blackHouse",
+                "/blackHouse",
                 "/redirect_login",
                 "/FromZerotoExpert/save",
                 "/redirect_login",
@@ -94,6 +106,8 @@ public class MySpringMvcConfig implements WebMvcConfigurer {
                 "/FromZerotoExpert/checkAll",
                 "/FromZerotoExpert",
                 "/FromZerotoExpert/redirect_login",
+                "/FromZerotoExpert/blackHouse",
+                "/blackHouse",
                 "/redirect_login",
                 "/FromZerotoExpert/save",
                 "/redirect_login",
@@ -114,6 +128,8 @@ public class MySpringMvcConfig implements WebMvcConfigurer {
                 "/FromZerotoExpert/checkEmail",
                 "/FromZerotoExpert/checkAll",
                 "/FromZerotoExpert/save",
+                "/FromZerotoExpert/blackHouse",
+                "/blackHouse",
                 "/**/*.html",                //html静态资源
                 "/**/*.js",                  //js静态资源
                 "/**/*.css"                  //css静态资源

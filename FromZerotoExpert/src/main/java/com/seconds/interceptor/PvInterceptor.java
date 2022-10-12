@@ -26,9 +26,7 @@ public class PvInterceptor implements HandlerInterceptor {
                 stringRedisTemplate.opsForValue().set(key,"0");
             }
 
-            Integer pv = Integer.parseInt(stringRedisTemplate.opsForValue().get(key));
-            ++pv;
-            stringRedisTemplate.opsForValue().set(key,pv + "");
+            stringRedisTemplate.opsForValue().increment(key);
             stringRedisTemplate.expire(key, 60 * 60 * 27, TimeUnit.SECONDS);
         }finally {
             return true;

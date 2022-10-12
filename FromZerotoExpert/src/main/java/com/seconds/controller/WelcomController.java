@@ -51,4 +51,15 @@ public class WelcomController {
         return "login.html";
     }
 
+
+    @RequestMapping("/blackHouse")
+    public String blackHouse(){
+        return "blackHouse.html";
+    }
+
+    @RequestMapping("/FromZerotoExpert/blackHouse")
+    public String blackHouse2(){
+        return "blackHouse.html";
+    }
+
 }
