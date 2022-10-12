@@ -1,1 +1,89 @@
+*{
+    margin: 0;
+}
+.nva{
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    border-bottom: 2px solid #FFFFFF;
+    /*渐变色*/
+    background: linear-gradient(500deg,#099,#099);
+}
+.nva img{
+    width: 50px;
+    height:50px;
+    /* 绝对定位 */
+    position: absolute;
+    /*圆形高度*/
+    border-radius: 50%;
+    overflow: hidden;
+}
 
+.left{
+    width: 300px;
+    height: 80%;
+    bottom: 0;
+    top: 52px;
+    /*固定位置*/
+    position: fixed;
+    display: flex;
+    left: 0;
+    border-right: 2px solid #FFFFFF;
+    /*浮动*/
+    float: left;
+    background: linear-gradient(3500deg,#394A58,#3280B0);
+}
+
+.right{
+    position: fixed;
+    height: 80%;
+    top: 52px;
+    right: 0;
+    bottom: 0;
+    left: 302px;
+    color: #FFFFFF;
+    overflow-y: auto;
+    background-color: #F5FF00;
+}
+
+.right .rig_upper{
+    width: 100%;
+    height: 270px;
+    top: 51px;
+    background: linear-gradient(500deg,#394A58,#3280B0);
+}
+.right .rig_under{
+    border-top: 1px solid #FFFFFF;
+
+    width: 100%;
+    height: 750px;
+    background: linear-gradient(500deg,#394A58,#3280B0);
+
+}
+
+#current_status{
+    color: blue;
+    font-weight: bolder;
+}
+
+
+.foot{
+    width: 100%;
+    height: 100px;
+    bottom: 0;
+    position: fixed;
+    color: #FFFFFF;
+    border-top: 2px solid #FFFFFF;
+    background: linear-gradient(500deg,#099,#369,#099);
+}
+
+#message{
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+#seconds_logo{
+    margin: 0 auto;
+    margin-top: 30px;
+    text-align: center;
+}

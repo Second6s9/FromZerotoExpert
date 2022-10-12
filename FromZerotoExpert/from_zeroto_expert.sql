@@ -22,3 +22,13 @@ INSERT INTO disallow_word(value) VALUES("尼玛");
 INSERT INTO disallow_word(value) VALUES("站长");
 INSERT INTO disallow_word(value) VALUES("国家领导人");
 INSERT INTO disallow_word(value) VALUES("操");
+
+DROP TABLE IF EXISTS web_information;
+
+CREATE TABLE web_information(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	date DATE DEFAULT(NULL),
+	ip INT DEFAULT(0),
+	pv INT DEFAULT(0),
+	uv INT DEFAULT(0)
+)ENGINE=INNODB;

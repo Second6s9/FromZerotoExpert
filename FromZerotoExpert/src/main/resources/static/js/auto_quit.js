@@ -25,23 +25,37 @@ function scheduledTasks(){
         //页面未关闭时，检测到超时改为离线
         $.post("/FromZerotoExpert/main/quit", {}, function (data){
             document.getElementById("current_status").innerHTML = "离线";
+            document.getElementById("current_status").style.color = 'red';
         })
     }else{
         //页面未关闭时，检测不超时，更新时间戳
         $.post("/FromZerotoExpert/main/updateOnlineTime", {"time":currentTime}, function (data){
             document.getElementById("current_status").innerHTML = "在线";
+            document.getElementById("current_status").style.color = 'blue';
         })
     }
     //页面未关闭时，定时更新在线人数
     $.post("/FromZerotoExpert/main/getOnlineNums", {"time":currentTime}, function (data){
-        var onlineUsers = "<p>当前在线用户:</p>"
+        var onlineUsers = "<h4>当前在线用户:</h4>"
         users = data.data;
         users.sort();
         for(var i = 0; i < users.length; i++){
-            onlineUsers = onlineUsers + "<p>" + users[i] + "</p>"
+            onlineUsers = onlineUsers + "<p>&nbsp;" + users[i] + "</p>"
         }
+        if(!users.length) onlineUsers = onlineUsers + "<p>&nbsp;无人在线~~</p>";
         document.getElementById("current_online_numbers").innerHTML = users.length;
         document.getElementById("current_online_users").innerHTML = onlineUsers;
+    })
+
+
+    $.post("/FromZerotoExpert/webInformation/getPV", {}, function (data){
+        document.getElementById("today_pv").innerHTML = data;
+    })
+    $.post("/FromZerotoExpert/webInformation/getUV", {}, function (data){
+        document.getElementById("today_uv").innerHTML = data;
+    })
+    $.post("/FromZerotoExpert/webInformation/getIP", {}, function (data){
+        document.getElementById("today_ip").innerHTML = data;
     })
 }
 
